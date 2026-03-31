@@ -52,6 +52,7 @@ Scheduler — I removed pet as a separate parameter and instead pull it from own
 - Describe one tradeoff your scheduler makes.
 - Why is that tradeoff reasonable for this scenario?
 
+find_conflicts() reports that two tasks overlap but leaves it entirely up to the user to fix it. A more complete scheduler would suggest an alternative time, automatically reschedule the shorter task, or prioritize by frequency. The tradeoff is simplicity over automation — the code stays easy to read and understand, but the user has to manually reorganize conflicting tasks.
 ---
 
 ## 3. AI Collaboration

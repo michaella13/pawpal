@@ -22,6 +22,17 @@ Your final app should:
 - Display the plan clearly (and ideally explain the reasoning)
 - Include tests for the most important scheduling behaviors
 
+## Smarter Scheduling
+
+The `Scheduler` class goes beyond a simple task list to bring structure and awareness to daily pet care planning:
+
+- **Conflict detection** — `find_conflicts()` scans tasks with assigned start times and flags any that overlap on the same day, so you never double-book Mochi's walk and grooming session.
+- **Duration-based sorting** — `sort_by_time()` orders tasks from shortest to longest, making it easy to fit quick wins into tight windows first.
+- **Frequency filtering** — `filter_by_frequency()` lets you isolate just the daily tasks, weekly tasks, or any other cadence, keeping the schedule view focused.
+- **Auto-rescheduling of recurring tasks** — `complete_task()` marks a task done and immediately creates the next occurrence at the right due date (tomorrow for daily, next week for weekly), so recurring care never falls off the radar.
+
+Together these features turn a flat to-do list into a schedule that respects the owner's time, avoids conflicts, and keeps recurring care on track automatically.
+
 ## Getting started
 
 ### Setup
