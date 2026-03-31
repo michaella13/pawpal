@@ -33,6 +33,32 @@ The `Scheduler` class goes beyond a simple task list to bring structure and awar
 
 Together these features turn a flat to-do list into a schedule that respects the owner's time, avoids conflicts, and keeps recurring care on track automatically.
 
+## Testing PawPal+
+
+### Run the tests
+
+```bash
+python -m pytest
+```
+
+### What my tests cover
+
+I wrote six tests that target the most critical behaviors in the scheduling system:
+
+- **Task completion** — I verify that calling `mark_complete()` actually flips the task's status, since the whole rescheduling flow depends on this being reliable.
+- **Pet task list** — I confirm that adding a task to a pet is tracked correctly, so I can trust `get_tasks()` throughout the app.
+- **Duration sorting** — I check that `sort_by_time()` returns tasks in shortest-to-longest order, which is how I prioritize fitting tasks into tight time windows.
+- **Auto-rescheduling** — I test that completing a daily task automatically creates the next occurrence for tomorrow, which is the feature I'm most proud of.
+- **Conflict detection** — I verify that two overlapping tasks are correctly flagged, and that back-to-back tasks (no gap, no overlap) are *not* flagged as a false positive.
+
+### Confidence Level
+
+**4 / 5 stars**
+
+I feel solid about the core scheduling logic — every key method has a test, and I covered edge cases like exact boundary timing. What keeps me from 5 stars is that I haven't tested the Streamlit UI layer or written a full end-to-end test that walks through an entire owner-pet-schedule workflow. That's the next thing I'd add.
+
+---
+
 ## Getting started
 
 ### Setup
