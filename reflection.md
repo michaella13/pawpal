@@ -2,6 +2,10 @@
 
 ## 1. System Design
 
+-Enter owner + pet info — provide basic details about themselves and their pet
+- Add/edit tasks — create and modify care tasks with at minimum a duration and priority
+-Generate a daily plan — trigger the scheduler to produce a prioritized daily schedule with reasoning
+
 **a. Initial design**
 
 - Briefly describe your initial UML design.
