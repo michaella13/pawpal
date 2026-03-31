@@ -11,10 +11,32 @@
 - Briefly describe your initial UML design.
 - What classes did you include, and what responsibilities did you assign to each?
 
+My initial UML design centered around five classes that mirror how pet care actually works in real life.
+
+Owner holds the person's info — their name, how much free time they have per day, and any preferences like preferring morning walks. It can update its available time.
+
+Pet represents the animal with basic details like name, species, breed, age, and any special needs. It's responsible for holding the list of care tasks.
+
+CareTask is the building block of the whole system — it stores what the task is, how long it takes, how important it is, and what category it falls under (walk, feeding, meds, etc.). It can mark itself as completed.
+
+DailySchedule holds the final ordered list of tasks for the day along with the total time used and a human-readable explanation of why the plan was built that way. It can display the plan and return a summary.
+
+Scheduler is the brain. It takes the owner and pet as inputs, sorts tasks by priority, filters out anything that doesn't fit within the owner's available time, and produces a DailySchedule with reasoning attached.
+
+The core relationship is: an Owner has a Pet, a Pet has many CareTasks, and the Scheduler reads both to produce a DailySchedule.
+
+
+
 **b. Design changes**
 
 - Did your design change during implementation?
 - If yes, describe at least one change and why you made it.
+
+Pet.add_task / get_tasks — I wired these to actually use self._tasks. They were just pass before, so the task list was being created but never written to or read from.
+
+CareTask priority — I added a VALID_PRIORITIES tuple and a check on init that raises an error if you pass anything outside "low", "medium", "high". Without this, a typo would silently break sorting later.
+
+Scheduler — I removed pet as a separate parameter and instead pull it from owner.pet. This way you can't accidentally pass a pet that doesn't belong to the owner
 
 ---
 
