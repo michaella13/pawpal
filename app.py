@@ -75,10 +75,14 @@ if st.button("Add task"):
         st.success(f"Task '{task_title}' added to {st.session_state.pet.name}.")
 
 if st.session_state.pet and st.session_state.pet.get_tasks():
-    st.write(f"Current tasks for {st.session_state.pet.name}:")
+    st.write(f"Current tasks for {st.session_state.pet.name} (sorted by duration):")
+    _preview_owner = Owner(name=owner_name, available_time=int(available_time))
+    _preview_owner.add_pet(st.session_state.pet)
+    _preview_scheduler = Scheduler(_preview_owner)
+    sorted_tasks = _preview_scheduler.sort_by_time()
     st.table([
         {"description": t.description, "duration_minutes": t.time, "frequency": t.frequency, "completed": t.is_completed}
-        for t in st.session_state.pet.get_tasks()
+        for t in sorted_tasks
     ])
 elif st.session_state.pet:
     st.info("No tasks yet. Add one above.")
@@ -94,7 +98,12 @@ if st.button("Generate schedule"):
         owner = Owner(name=owner_name, available_time=int(available_time))
         owner.add_pet(st.session_state.pet)
         scheduler = Scheduler(owner)
-        scheduled = scheduler.organize_tasks()
+        scheduled = scheduler.sort_by_time()
+        conflicts = scheduler.find_conflicts()
+
+        for warning in conflicts:
+            st.warning(warning)
+
         if scheduled:
             st.success("Schedule generated!")
             st.table([
@@ -102,4 +111,4 @@ if st.button("Generate schedule"):
                 for t in scheduled
             ])
         else:
-            st.info("Scheduler returned no results. Implement organize_tasks() in pawpal_system.py to see the schedule.")
+            st.info("No tasks to schedule.")

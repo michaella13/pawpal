@@ -96,3 +96,7 @@ find_conflicts() reports that two tasks overlap but leaves it entirely up to the
 **c. Key takeaway**
 
 - What is one important thing you learned about designing systems or working with AI on this project?
+
+## 6 Demo
+
+<a href="/apprun.png" target="_blank"><img src=''>
